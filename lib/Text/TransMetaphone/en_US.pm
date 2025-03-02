@@ -104,158 +104,140 @@ sub trans_metaphone
 			    && ((charAt($original, $current + 2) != 'I')
 			    && ((charAt($original, $current + 2) != 'E')
 			    || stringAt($original, ($current - 2), 6, "BACHER", "MACHER", ""))))
-		  {
-			appendPhones( "k" );
-			$current += 2;
-		  }
-
-		# special case 'caesar'
-		if( ($current == 0) && stringAt($original, $current, 6, "CAESAR", "")) {
-			appendPhones( "s" );
-			$current += 2;
-		}
-
-		# italian 'chianti'
-		if( stringAt($original, $current, 4, "CHIA", "")) {
-			appendPhones( "k" );
-			$current += 2;
-		}
-
-		if( stringAt($original, $current, 2, "CH", "")) {
-			# find 'michael'
-			if( ($current > 0) && stringAt($original, $current, 4, "CHAE", "")) {
-				appendPhones( "k", "ʃ" );
+			{
+				appendPhones( "k" );
 				$current += 2;
 			}
 
-			# greek roots e.g. 'chemistry', 'chorus'
-			if( ($current == 0)
-			   && (stringAt($original, ($current + 1), 5, "HARAC", "HARIS", "")
-			   || stringAt($original, ($current + 1), 3, "HOR", "HYM", "HIA", "HEM", ""))
-			   && !stringAt($original, 0, 5, "CHORE", ""))
+			# special case 'caesar'
+			if( ($current == 0) && stringAt($original, $current, 6, "CAESAR", "")) {
+				appendPhones( "s" );
+				$current += 2;
+			}
+
+			# italian 'chianti'
+			if( stringAt($original, $current, 4, "CHIA", "")) {
+				appendPhones( "k" );
+				$current += 2;
+			}
+
+			if( stringAt($original, $current, 2, "CH", "")) {
+				# find 'michael'
+				if( ($current > 0) && stringAt($original, $current, 4, "CHAE", "")) {
+					appendPhones( "k", "ʃ" );
+					$current += 2;
+				}
+	
+				# greek roots e.g. 'chemistry', 'chorus'
+				if( ($current == 0)
+				   && (stringAt($original, ($current + 1), 5, "HARAC", "HARIS", "")
+				   || stringAt($original, ($current + 1), 3, "HOR", "HYM", "HIA", "HEM", ""))
+				   && !stringAt($original, 0, 5, "CHORE", ""))
+				{
+					appendPhones( "k" );
+					$current += 2;
+					next;
+				}
+
+				# germanic, greek, or otherwise 'ch' for 'kh' sound
+				if(  (stringAt($original, 0, 4, "VAN ", "VON ", "")
+				   || stringAt($original, 0, 3, "SCH", ""))
+				      #  'architect but not 'arch', 'orchestra', 'orchid'
+				   || stringAt($original, ($current - 2), 6, "ORCHES", "ARCHIT", "ORCHID", "")
+				   || stringAt($original, ($current + 2), 1, "T", "S", "")
+				   || ((stringAt($original, ($current - 1), 1, "A", "O", "U", "E", "") 
+       		                   || ($current == 0))
+				      # e.g., 'wachtler', 'wechsler', but not 'tichner'
+				   && stringAt($original, ($current + 2), 1, "L", "R", "N", "M", "B", "H", "F", "V", "W", " ", "")) )
+				{
+					appendPhones( "k" );
+				}
+				elsif( $current > 0) {
+					if( stringAt($original, 0, 2, "MC", "")) {
+						# e.g., "McHugh"
+						appendPhones( "k" );
+					} else {
+						appendPhones( "ʧ", "k" );
+					}
+				} else {
+					appendPhones( "ʃ" );
+				}
+				$current += 2;
+				next;
+			}
+			# e.g, 'czerny'
+			if( stringAt($original, $current, 2, "CZ", "")
+			    && !stringAt($original, ($current - 2), 4, "WICZ", ""))
 			{
+				appendPhones( "s", "ʃ" );
+				$current += 2;
+				next;
+			}
+
+			# e.g., 'focaccia'
+			if( stringAt($original, ($current + 1), 3, "CIA", "")) {
+				appendPhones( "ʃ" );
+				$current += 3;
+				next;
+			}
+
+			# double 'C', but not if e.g. 'McClellan'
+			if( stringAt($original, $current, 2, "CC", "")
+			    && !(($current == 1) && (charAt($original, 0) eq 'M')))
+			    # 'bellocchio' but not 'bacchus'
+			{
+				if( stringAt($original, ($current + 2), 1, "I", "E", "H", "")
+			 	    && !stringAt($original, ($current + 2), 2, "HU", ""))
+				{
+					# 'accident', 'accede' 'succeed'
+					if( (($current == 1)
+					    && (charAt($original, $current - 1) eq 'A'))
+					    || stringAt($original, ($current - 1), 5, "UCCEE", "UCCES", ""))
+					{
+						appendPhones( "ks" );
+						# 'bacci', 'bertucci', other italian
+					}
+					else {
+						appendPhones( "ʃ" );
+					}
+					$current += 3;
+					next;
+				}
+				else {	  # Pierce's rule
+					appendPhones( "k" );
+					$current += 2;
+					next;
+				}
+			}
+
+			if( stringAt($original, $current, 2, "CK", "CG", "CQ", "")) {
 				appendPhones( "k" );
 				$current += 2;
 				next;
 			}
 
-			# germanic, greek, or otherwise 'ch' for 'kh' sound
-			if(  (stringAt($original, 0, 4, "VAN ", "VON ", "")
-			   || stringAt($original, 0, 3, "SCH", ""))
-			  #  'architect but not 'arch', 'orchestra', 'orchid'
-			  || stringAt($original, ($current - 2), 6, "ORCHES",
-				      "ARCHIT", "ORCHID", "")
-			  || stringAt($original, ($current + 2), 1, "T", "S", "")
-			  || ((stringAt($original, ($current - 1), 1, "A", "O", "U", "E", "") 
-                          || ($current == 0))
-			   # e.g., 'wachtler', 'wechsler', but not 'tichner'
-			  && stringAt($original, ($current + 2), 1, "L", "R",
-		                      "N", "M", "B", "H", "F", "V", "W", " ", "")))
-			{
-				appendPhones( "k" );
-			}
-		      else
-			{
-			    if( $current > 0)
-			      {
-				  if( stringAt($original, 0, 2, "MC", ""))
-				    {
-					# e.g., "McHugh"
-					appendPhones( "k" );
-				    }
-				  else
-				    {
-					appendPhones( "ʧ", "k" );
-				    }
-			      }
-			    else
-			      {
-				appendPhones( "ʃ" );
-			      }
-			}
-		      $current += 2;
-		      next;
-		}
-		# e.g, 'czerny'
-		if( stringAt($original, $current, 2, "CZ", "")
-		    && !stringAt($original, ($current - 2), 4, "WICZ", ""))
-		{
-			appendPhones( "s", "ʃ" );
-			$current += 2;
-			next;
-		}
-
-		# e.g., 'focaccia'
-		if( stringAt($original, ($current + 1), 3, "CIA", "")) {
-			appendPhones( "ʃ" );
-			$current += 3;
-			next;
-		}
-
-		# double 'C', but not if e.g. 'McClellan'
-		if( stringAt($original, $current, 2, "CC", "")
-		    && !(($current == 1) && (charAt($original, 0) eq 'M')))
-		    # 'bellocchio' but not 'bacchus'
-		  {
-		    if( stringAt($original, ($current + 2), 1, "I", "E", "H", "")
-			&& !stringAt($original, ($current + 2), 2, "HU", ""))
-		      {
-			  # 'accident', 'accede' 'succeed'
-			  if( 
-			      (($current == 1)
-			       && (charAt($original, $current - 1) eq 'A'))
-			      || stringAt($original, ($current - 1), 5, "UCCEE", "UCCES", ""))
-			    {
-				appendPhones( "ks" );
-				# 'bacci', 'bertucci', other italian
-			    }
-			  else
-			    {
-				appendPhones( "ʃ" );
-			    }
-			  $current += 3;
-			  next;
-		      }
-		    else
-		      {	  # Pierce's rule
-				appendPhones( "k" );
-			  $current += 2;
-			  next;
-		      }
-		  }
-
-		if( stringAt($original, $current, 2, "CK", "CG", "CQ", ""))
-		  {
-			appendPhones( "k" );
-		      $current += 2;
-		      next;
-		  }
-
 			if( stringAt($original, $current, 2, "CI", "CE", "CY", "")) {
-			      # italian vs. english
-			      if( stringAt($original, $current, 3, "CIO", "CIE", "CIA", ""))
-				{
+				# italian vs. english
+				if( stringAt($original, $current, 3, "CIO", "CIE", "CIA", "")) {
 					appendPhones( "s", "ʃ" );
-				}
-			      else
-				{
+				} else {
 					appendPhones( "s" );
 				}
-			      $current += 2;
-			      next;
-		  	}
-
+				$current += 2;
+				next;
+			}
+	
 			# else
 			appendPhones( "k" );
-
+	
 			# name sent in 'mac caffrey', 'mac gregor
 			if( stringAt($original, ($current + 1), 2, " C", " Q", " G", "")) {
-			    $current += 3;
+				$current += 3;
 			} elsif( stringAt($original, ($current + 1), 1, "C", "K", "Q", "")
-				&& !stringAt($original, ($current + 1), 2, "CE", "CI", "")) {
-			    $current += 2;
+			         && !stringAt($original, ($current + 1), 2, "CE", "CI", "")) {
+				$current += 2;
 			} else {
-			    $current += 1;
+				$current += 1;
 			}
 		}
 		elsif( $ch eq 'D' ) {
