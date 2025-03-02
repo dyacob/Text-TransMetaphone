@@ -1,12 +1,13 @@
 package Text::TransMetaphone::he;
-
 use utf8;
+
 BEGIN
 {
 	use strict;
+	use warnings;
 	use vars qw( $VERSION $LocaleRange );
 
-	$VERSION = '0.01';
+	$VERSION = '0.08';
 
 	$LocaleRange = qr/\p{InHebrew}/;
 
@@ -145,6 +146,8 @@ sub trans_metaphone
 
 __END__
 
+
+=encoding utf8
 
 
 =head1 NAME

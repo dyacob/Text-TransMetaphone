@@ -1,12 +1,13 @@
 package Text::TransMetaphone::ar;
-
 use utf8;
+
 BEGIN
 {
 	use strict;
+	use warnings;
 	use vars qw( $VERSION $LocaleRange );
 
-	$VERSION = '0.01';
+	$VERSION = '0.08';
 
 	$LocaleRange = qr/(\p{InArabic}|\p{InArabicPresentationFormsA}|\p{InArabicPresentationFormsB})/;
 
@@ -132,6 +133,8 @@ sub reverse_key
 
 __END__
 
+
+=encoding utf8
 
 
 =head1 NAME

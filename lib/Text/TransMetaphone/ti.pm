@@ -1,12 +1,13 @@
 package Text::TransMetaphone::ti;
-
 use utf8;
+
 BEGIN
 {
 	use strict;
+	use warnings;
 	use vars qw( $VERSION $LocaleRange );
 
-	$VERSION = '0.01';
+	$VERSION = '0.08';
 
 	$LocaleRange = qr/\p{Inxyz}/;
 
@@ -120,6 +121,8 @@ sub reverse_key
 
 __END__
 
+
+=encoding utf8
 
 
 =head1 NAME

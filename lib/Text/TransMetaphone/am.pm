@@ -9,6 +9,7 @@ use Regexp::Ethiopic::Amharic qw(:forms setForm overload);
 BEGIN
 {
 	use strict;
+	use warnings;
 	use vars qw( $VERSION $LocaleRange %IMExpected %IMError %plosives );
 
 	$VERSION = '0.08';
@@ -182,6 +183,8 @@ sub reverse_key
 
 __END__
 
+
+=encoding utf8
 
 
 =head1 NAME

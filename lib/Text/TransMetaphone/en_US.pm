@@ -1,12 +1,10 @@
 package Text::TransMetaphone::en_US;
-use base qw( DynaLoader );
-
-use strict;
-use Carp;
+use utf8;
 
 BEGIN
 {
 	use strict;
+	use warnings;
 	use vars qw( $VERSION $LocaleRange );
 
 	$VERSION = '0.08';
@@ -873,6 +871,8 @@ sub trans_metaphone
 
 __END__
 
+
+=encoding utf8
 
 
 =head1 NAME

@@ -1,11 +1,12 @@
 package Text::TransMetaphone;
 use base qw(Exporter);
-
 use utf8;
+
 BEGIN
 {
-use strict;
-use vars qw($VERSION @EXPORT_OK %LocaleRanges);
+	use strict;
+	use warnings;
+	use vars qw($VERSION @EXPORT_OK %LocaleRanges);
 
 	$VERSION = "0.08";
 
