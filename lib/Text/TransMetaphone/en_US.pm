@@ -26,12 +26,12 @@ sub stringAt
 {
 my($word,$start,$length) = (shift,shift,shift);
 
-	return 0 if ( (0 > $start) || ($start >= length($word) ) );
+	return 0 if(  (0 > $start) || ($start >= length($word) ) );
 
 	my $sub = substr( $word, $start, $length );
 
 	foreach my $test ( @_ ) {
-	      return 1 if ( $sub eq $test );
+	      return 1 if(  $sub eq $test );
 	}
 
 }
@@ -71,15 +71,13 @@ sub trans_metaphone
 	}
 
 
-	# while ( (length($primary) < $KEY_LIMIT) || (length($secondary) < $KEY_LIMIT) ) {
-	# while ( (length($primary) < $KEY_LIMIT) || ($KEY_LIMIT > length($secondary)) ) {
 	while ( ($KEY_LIMIT < length($primary))  || (length($secondary) < $KEY_LIMIT) ) {
 
-		next if ($current >= $length);
+		next if( $current >= $length);
 
 		my $ch =  charAt($original, $current);
 	    	if( $ch =~ /[AEIOUY]/ ) {
-			if ($current == 0) {
+			if( $current == 0) {
 				# all init vowels now map to 'A'
 				appendPhones( "a" );
 			}
@@ -89,7 +87,7 @@ sub trans_metaphone
 			# "-mb", e.g", "dumb", already skipped over...
 			appendPhones( "p" );
 
-			$current += (charAt($original, ($current + 1)) eq 'B')
+			$current += ( charAt($original, ($current + 1)) eq 'B' )
 				 ? 2
 				 : 1
 			;
@@ -100,7 +98,7 @@ sub trans_metaphone
 		}
 		elsif( $ch eq 'C' ) {
 			# various germanic
-			if (($current > 1)
+			if( ($current > 1)
 			    && !isVowel($original, $current - 2)
 			    && stringAt($original, ($current - 1), 3, "ACH", "")
 			    && ((charAt($original, $current + 2) != 'I')
@@ -112,26 +110,26 @@ sub trans_metaphone
 		  }
 
 		# special case 'caesar'
-		if (($current == 0) && stringAt($original, $current, 6, "CAESAR", "")) {
+		if( ($current == 0) && stringAt($original, $current, 6, "CAESAR", "")) {
 			appendPhones( "s" );
 			$current += 2;
 		}
 
 		# italian 'chianti'
-		if (stringAt($original, $current, 4, "CHIA", "")) {
+		if( stringAt($original, $current, 4, "CHIA", "")) {
 			appendPhones( "k" );
 			$current += 2;
 		}
 
-		if (stringAt($original, $current, 2, "CH", "")) {
+		if( stringAt($original, $current, 2, "CH", "")) {
 			# find 'michael'
-			if (($current > 0) && stringAt($original, $current, 4, "CHAE", "")) {
+			if( ($current > 0) && stringAt($original, $current, 4, "CHAE", "")) {
 				appendPhones( "k", "ʃ" );
 				$current += 2;
 			}
 
 			# greek roots e.g. 'chemistry', 'chorus'
-			if (($current == 0)
+			if( ($current == 0)
 			   && (stringAt($original, ($current + 1), 5, "HARAC", "HARIS", "")
 			   || stringAt($original, ($current + 1), 3, "HOR", "HYM", "HIA", "HEM", ""))
 			   && !stringAt($original, 0, 5, "CHORE", ""))
@@ -142,7 +140,7 @@ sub trans_metaphone
 			}
 
 			# germanic, greek, or otherwise 'ch' for 'kh' sound
-			if ( (stringAt($original, 0, 4, "VAN ", "VON ", "")
+			if(  (stringAt($original, 0, 4, "VAN ", "VON ", "")
 			   || stringAt($original, 0, 3, "SCH", ""))
 			  #  'architect but not 'arch', 'orchestra', 'orchid'
 			  || stringAt($original, ($current - 2), 6, "ORCHES",
@@ -158,9 +156,9 @@ sub trans_metaphone
 			}
 		      else
 			{
-			    if ($current > 0)
+			    if( $current > 0)
 			      {
-				  if (stringAt($original, 0, 2, "MC", ""))
+				  if( stringAt($original, 0, 2, "MC", ""))
 				    {
 					# e.g., "McHugh"
 					appendPhones( "k" );
@@ -179,7 +177,7 @@ sub trans_metaphone
 		      next;
 		}
 		# e.g, 'czerny'
-		if (stringAt($original, $current, 2, "CZ", "")
+		if( stringAt($original, $current, 2, "CZ", "")
 		    && !stringAt($original, ($current - 2), 4, "WICZ", ""))
 		{
 			appendPhones( "s", "ʃ" );
@@ -188,22 +186,22 @@ sub trans_metaphone
 		}
 
 		# e.g., 'focaccia'
-		if (stringAt($original, ($current + 1), 3, "CIA", "")) {
+		if( stringAt($original, ($current + 1), 3, "CIA", "")) {
 			appendPhones( "ʃ" );
 			$current += 3;
 			next;
 		}
 
 		# double 'C', but not if e.g. 'McClellan'
-		if (stringAt($original, $current, 2, "CC", "")
+		if( stringAt($original, $current, 2, "CC", "")
 		    && !(($current == 1) && (charAt($original, 0) eq 'M')))
 		    # 'bellocchio' but not 'bacchus'
 		  {
-		    if (stringAt($original, ($current + 2), 1, "I", "E", "H", "")
+		    if( stringAt($original, ($current + 2), 1, "I", "E", "H", "")
 			&& !stringAt($original, ($current + 2), 2, "HU", ""))
 		      {
 			  # 'accident', 'accede' 'succeed'
-			  if (
+			  if( 
 			      (($current == 1)
 			       && (charAt($original, $current - 1) eq 'A'))
 			      || stringAt($original, ($current - 1), 5, "UCCEE", "UCCES", ""))
@@ -226,36 +224,34 @@ sub trans_metaphone
 		      }
 		  }
 
-		if (stringAt($original, $current, 2, "CK", "CG", "CQ", ""))
+		if( stringAt($original, $current, 2, "CK", "CG", "CQ", ""))
 		  {
 			appendPhones( "k" );
 		      $current += 2;
 		      next;
 		  }
 
-		if (stringAt($original, $current, 2, "CI", "CE", "CY", ""))
-		  {
-		      # italian vs. english
-		      if (stringAt
-			  ($original, $current, 3, "CIO", "CIE", "CIA", ""))
-			{
-				appendPhones( "s", "ʃ" );
-			}
-		      else
-			{
-				appendPhones( "s" );
-			}
-		      $current += 2;
-		      next;
-		  }
+			if( stringAt($original, $current, 2, "CI", "CE", "CY", "")) {
+			      # italian vs. english
+			      if( stringAt($original, $current, 3, "CIO", "CIE", "CIA", ""))
+				{
+					appendPhones( "s", "ʃ" );
+				}
+			      else
+				{
+					appendPhones( "s" );
+				}
+			      $current += 2;
+			      next;
+		  	}
 
 			# else
 			appendPhones( "k" );
 
 			# name sent in 'mac caffrey', 'mac gregor
-			if (stringAt($original, ($current + 1), 2, " C", " Q", " G", "")) {
+			if( stringAt($original, ($current + 1), 2, " C", " Q", " G", "")) {
 			    $current += 3;
-			} elsif (stringAt($original, ($current + 1), 1, "C", "K", "Q", "")
+			} elsif( stringAt($original, ($current + 1), 1, "C", "K", "Q", "")
 				&& !stringAt($original, ($current + 1), 2, "CE", "CI", "")) {
 			    $current += 2;
 			} else {
@@ -274,7 +270,7 @@ sub trans_metaphone
 					$current += 2;
 				}
 			}
-			elsif (stringAt($original, $current, 2, "DT", "DD", "")) {
+			elsif( stringAt($original, $current, 2, "DT", "DD", "")) {
 				appendPhones( "t" );
 				$current += 2;
 			} else {
@@ -283,78 +279,69 @@ sub trans_metaphone
 			}
 		}
 		elsif( $ch eq 'F' ) {
-			$current += (charAt($original, $current + 1) eq 'F')
+			$current += ( charAt($original, $current + 1) eq 'F' )
 				 ? 2
 				 : 1
 			;
 			appendPhones( "f" );
 		}
 		elsif( $ch eq 'G' ) {
-			if (charAt($original, $current + 1) eq 'H') {
-		      if (($current > 0) && !isVowel($original, $current - 1))
-			{
+			if( charAt($original, $current + 1) eq 'H' ) {
+		      		if( ($current > 0) && !isVowel($original, $current - 1) ) {
 					appendPhones( "k" );
-			    $current += 2;
-			    next;
-			}
+					$current += 2;
+					next;
+				}
+				if( $current < 3) {
+					# 'ghislane', ghiradelli
+					if( $current == 0) {
+						if( charAt($original, $current + 2) eq 'I') {
+							appendPhones( "j" );
+						} else {
+							appendPhones( "k" );
+						}
+						$current += 2;
+						next;
+				  	}
+				}
+				# Parker's rule (with some further refinements) - e.g., 'hugh'
+				if( (($current > 1)
+				    && stringAt($original, ($current - 2), 1, "B", "H", "D", ""))
+				    # e.g., 'bough'
+				    || (($current > 2)
+				    && stringAt($original, ($current - 3), 1, "B", "H", "D", ""))
+				    # e.g., 'broughton'
+				    || (($current > 3)
+				    && stringAt($original, ($current - 4), 1, "B", "H", "")))
+				{
+					$current += 2;
+					next;
+				}
+			      else
+				{
+					# e.g., 'laugh', 'McLaughlin', 'cough', 'gough', 'rough', 'tough'
+					if( ($current > 2)
+					    && (charAt($original, $current - 1) eq 'U')
+					    && stringAt($original, ($current - 3), 1, "C", "G", "L", "R", "T", ""))
+					{
+						appendPhones( "f" );
+					}
+				    elsif( ($current > 0) && charAt($original, $current - 1) != 'I' )
+					{
+						appendPhones( "k" );
+					}
 
-		      if ($current < 3)
-			{
-			    # 'ghislane', ghiradelli
-			    if ($current == 0)
-			      {
-				  if (charAt($original, $current + 2) eq 'I')
-				    {
-					appendPhones( "j" );
-				    }
-				  else
-				    {
-					appendPhones( "k" );
-				    }
-				  $current += 2;
-				  next;
-			      }
-			}
-		      # Parker's rule (with some further refinements) - e.g., 'hugh'
-		      if (
-			  (($current > 1)
-			   && stringAt($original, ($current - 2), 1, "B", "H", "D", ""))
-			  # e.g., 'bough'
-			  || (($current > 2)
-			      && stringAt($original, ($current - 3), 1, "B", "H", "D", ""))
-			  # e.g., 'broughton'
-			  || (($current > 3)
-			      && stringAt($original, ($current - 4), 1, "B", "H", "")))
-			{
-			    $current += 2;
-			    next;
-			}
-		      else
-			{
-			    # e.g., 'laugh', 'McLaughlin', 'cough', 'gough', 'rough', 'tough'
-			    if (($current > 2)
-				&& (charAt($original, $current - 1) eq 'U')
-				&& stringAt($original, ($current - 3), 1, "C", "G", "L", "R", "T", ""))
-			      {
-					appendPhones( "f" );
-			      }
-			    elsif (($current > 0)
-				     && charAt($original, $current - 1) != 'I')
-			      {
-					appendPhones( "k" );
-			      }
-
-			    $current += 2;
-			    next;
-			}
+					$current += 2;
+					next;
+				}
 		  }
 
-		if (charAt($original, $current + 1) eq 'N') {
-		      	if (($current == 1) && isVowel($original, 0) && !SlavoGermanic($original)) {
+		if( charAt($original, $current + 1) eq 'N') {
+		      	if( ($current == 1) && isVowel($original, 0) && !SlavoGermanic($original)) {
 				appendPhones( "kn", "n" );
 			}
 		      	# not e.g. 'cagney'
-			elsif (!stringAt($original, ($current + 2), 2, "EY", "")
+			elsif( !stringAt($original, ($current + 2), 2, "EY", "")
 			      && (charAt($original, $current + 1) != 'Y')
 			      && !SlavoGermanic($original))
 			{
@@ -367,7 +354,7 @@ sub trans_metaphone
 		  }
 
 		# 'tagliaro'
-		if (stringAt($original, ($current + 1), 2, "LI", "")
+		if( stringAt($original, ($current + 1), 2, "LI", "")
 		    && !SlavoGermanic($original))
 		  {
 				appendPhones( "kl", "l" );
@@ -376,7 +363,7 @@ sub trans_metaphone
 		  }
 
 		# -ges-,-gep-,-gel-, -gie- at beginning
-		if (($current == 0)
+		if( ($current == 0)
 		    && ((charAt($original, $current + 1) eq 'Y')
 			|| stringAt($original, ($current + 1), 2, "ES", "EP", "EB", "EL", "EY", "IB", "IL", "IN", "IE", "EI", "ER", "")))
 		  {
@@ -386,7 +373,7 @@ sub trans_metaphone
 		  }
 
 		#  -ger-,  -gy-
-		if (
+		if( 
 		    (stringAt($original, ($current + 1), 2, "ER", "")
 		     || (charAt($original, $current + 1) eq 'Y'))
 		    && !stringAt($original, 0, 6, "DANGER", "RANGER", "MANGER", "")
@@ -400,11 +387,11 @@ sub trans_metaphone
 		  }
 
 		#  italian e.g, 'biaggi'
-		if (stringAt($original, ($current + 1), 1, "E", "I", "Y", "")
+		if( stringAt($original, ($current + 1), 1, "E", "I", "Y", "")
 		    || stringAt($original, ($current - 1), 4, "AGGI", "OGGI", ""))
 		  {
 		      # obvious germanic
-		      if (
+		      if( 
 			  (stringAt($original, 0, 4, "VAN ", "VON ", "")
 			   || stringAt($original, 0, 3, "SCH", ""))
 			  || stringAt($original, ($current + 1), 2, "ET", ""))
@@ -414,7 +401,7 @@ sub trans_metaphone
 		      else
 			{
 			    # always soft if french ending
-			    if (stringAt ($original, ($current + 1), 4, "IER ", ""))
+			    if( stringAt ($original, ($current + 1), 4, "IER ", ""))
 			      {
 					appendPhones( "j" );
 			      }
@@ -435,65 +422,54 @@ sub trans_metaphone
 		}
 		elsif( $ch eq 'H' ) {
 			# only keep if first & before vowel or btw. 2 vowels
-			if ((($current == 0) || isVowel($original, $current - 1))
+			if( (($current == 0) || isVowel($original, $current - 1))
 			    && isVowel($original, $current + 1))
-			  {
+			{
 				appendPhones( "h" );
-			      $current += 2;
-			  }
+				$current += 2;
+			}
 			else {	# also takes care of 'HH'
-			    $current += 1;
+				$current += 1;
+				
 			}
 		}
 		elsif( $ch eq 'J' ) {
-		# obvious spanish, 'jose', 'san jacinto'
-		if (stringAt($original, $current, 4, "JOSE", "")
-		    || stringAt($original, 0, 4, "SAN ", ""))
-		  {
-		      if ((($current == 0)
-			   && (charAt($original, $current + 4) == ' '))
-			  || stringAt($original, 0, 4, "SAN ", ""))
+			# obvious spanish, 'jose', 'san jacinto'
+			if( stringAt($original, $current, 4, "JOSE", "")
+			    || stringAt($original, 0, 4, "SAN ", "") )
 			{
-				appendPhones( "h" );
+				if( (($current == 0)
+				   && (charAt($original, $current + 4) == ' '))
+				   || stringAt($original, 0, 4, "SAN ", "") )
+				{
+					appendPhones( "h" );
+				}
+				else {
+					appendPhones( "j", "h" );
+				}
+				$current += 1;
+				next;
 			}
-		      else
-			{
-				appendPhones( "j", "h" );
-			}
-		      $current += 1;
-		      next;
-		  }
 
-		if ( ($current == 0) && !stringAt($original, $current, 4, "JOSE", "")) {
+			if(  ($current == 0) && !stringAt($original, $current, 4, "JOSE", "") ) {
 				# Yankelovich/Jankelowicz
 				appendPhones( "ʤ", "a" );
-		  } else {
-		      # spanish pron. of e.g. 'bajador'
-		      if (IsVowel($original, $current - 1)
-			  && !SlavoGermanic($original)
-			  && ((charAt($original, $current + 1) eq 'A')
-			      || (charAt($original, $current + 1) == 'O')))
+			# spanish pron. of e.g. 'bajador'
+			} elsif( IsVowel($original, $current - 1)
+				  && !SlavoGermanic($original)
+				  && ((charAt($original, $current + 1) eq 'A')
+				      || (charAt($original, $current + 1) == 'O')))
 			{
 				appendPhones( "j", "h" );
 			}
-		      else
-			{
-			    if ($current == $last)
-			      {
+			elsif( $current == $last) {
 				appendPhones( "ʤ", "" );
-			      }
-			    else
-			      {
-				  if (!stringAt($original, ($current + 1), 1, "L", "T",
-				                "K", "S", "N", "M", "B", "Z", "")
-				      && !stringAt($original, ($current - 1), 1,
-						   "S", "K", "L", "")) 
-                                    {
-					appendPhones( "j" );
-                                    }
-			      }
 			}
-		  }
+			elsif( !stringAt($original, ($current + 1), 1, "L", "T", "K", "S", "N", "M", "B", "Z", "")
+			       && !stringAt($original, ($current - 1), 1, "S", "K", "L", "")) 
+                      	{
+				appendPhones( "j" );
+			}
 
 			$current += (charAt($original, $current + 1) eq 'J') # it could happen! 
 				 ? 2
@@ -501,7 +477,7 @@ sub trans_metaphone
 			;
 		}
 		elsif( $ch eq 'K' ) {
-			if (charAt($original, $current + 1) != 'H') {
+			if( charAt($original, $current + 1) != 'H') {
 				$current += (charAt($original, $current + 1) eq 'K')
 					 ? 2
 					 : 1
@@ -516,7 +492,7 @@ sub trans_metaphone
 			$secondary .= "k";
 		}
 		elsif( $ch eq 'L' ) {
-			if (charAt($original, $current + 1) eq 'L') {
+			if( charAt($original, $current + 1) eq 'L') {
 				# spanish e.g. 'cabrillo', 'gallegos'
 				if( (($current == ($length - 3))
 				   && stringAt($original, ($current - 1), 4, "ILLO", "ILLA", "ALLE", ""))
@@ -549,7 +525,7 @@ sub trans_metaphone
 			appendPhones( "m" );
 		}
 		elsif( $ch eq 'N' ) {
-			if (charAt($original, $current + 1) eq 'Y') {
+			if( charAt($original, $current + 1) eq 'Y') {
 				$primary .= "ɲ";
 				$current += 2;
 			} else {
@@ -566,12 +542,12 @@ sub trans_metaphone
 			$current += 1;
 		}
 		elsif( $ch eq 'P' ) {
-			if (charAt($original, $current + 1) eq 'H') {
+			if( charAt($original, $current + 1) eq 'H') {
 				appendPhones( "f" );
 				$current += 2;
 		  	}
 			# also account for "campbell", "raspberry"
-			elsif (stringAt($original, ($current + 1), 1, "P", "B", "")) {
+			elsif( stringAt($original, ($current + 1), 1, "P", "B", "")) {
 				$current += 2;
 			} else {
 				$current += 1;
@@ -580,7 +556,7 @@ sub trans_metaphone
 			appendPhones( "p" );
 		}
 		elsif( $ch eq 'Q' ) {
-			if (charAt($original, $current + 1) eq 'U') {
+			if( charAt($original, $current + 1) eq 'U') {
 				$primary .= "kw";
 				$current += 1;  # total of 2
 			}
@@ -596,7 +572,7 @@ sub trans_metaphone
 		}
 		elsif( $ch eq 'R' ) {
 			# french e.g. 'rogier', but exclude 'hochmeier'
-			if (($current == $last)
+			if( ($current == $last)
 			    && !SlavoGermanic($original)
 			    && stringAt($original, ($current - 2), 2, "IE", "")
 			    && !stringAt($original, ($current - 4), 2, "ME", "MA", ""))
@@ -615,42 +591,35 @@ sub trans_metaphone
 		}
 		elsif( $ch eq 'S' ) {
 			# special cases 'island', 'isle', 'carlisle', 'carlysle'
-			if (stringAt($original, ($current - 1), 3, "ISL", "YSL", ""))
-			  {
+			if( stringAt($original, ($current - 1), 3, "ISL", "YSL", ""))
+			{
 			      $current += 1;
 			      next;
-			  }
+			}
 
-		# special case 'sugar-'
-		if (($current == 0)
-		    && stringAt($original, $current, 5, "SUGAR", ""))
-		  {
-			appendPhones( "ʃ", "s" );
-		      $current += 1;
-		      next;
-		  }
+			# special case 'sugar-'
+			if( ($current == 0) && stringAt($original, $current, 5, "SUGAR", "") ) {
+				appendPhones( "ʃ", "s" );
+			      $current += 1;
+			      next;
+			}
 
-		if (stringAt($original, $current, 2, "SH", ""))
-		  {
-		      # germanic
-		      if (stringAt
-			  ($original, ($current + 1), 4, "HEIM", "HOEK", "HOLM", "HOLZ", ""))
-			{
+			if( stringAt($original, $current, 2, "SH", "") ) {
+				# germanic
+				if( stringAt ($original, ($current + 1), 4, "HEIM", "HOEK", "HOLM", "HOLZ", "")) {
 					appendPhones( "s" );
-			}
-		      else
-			{
+				} else {
 					appendPhones( "ʃ" );
+				}
+		      		$current += 2;
+				next;
 			}
-		      $current += 2;
-		      next;
-		  }
 
 		# italian & armenian
-		if (stringAt($original, $current, 3, "SIO", "SIA", "")
+		if( stringAt($original, $current, 3, "SIO", "SIA", "")
 		    || stringAt($original, $current, 4, "SIAN", ""))
 		  {
-		      if (!SlavoGermanic($original)) {
+		      if( !SlavoGermanic($original)) {
 					appendPhones( "s", "ʃ" );
 			} else {
 					appendPhones( "s" );
@@ -661,7 +630,7 @@ sub trans_metaphone
 
 		# german & anglicisations, e.g. 'smith' match 'schmidt', 'snider' match 'schneider' 
 		#   also, -sz- in slavic language altho in hungarian it is pronounced 's'
-		if ((($current == 0)
+		if( (($current == 0)
 		     && stringAt($original, ($current + 1), 1, "M", "N", "L", "W", ""))
 		    || stringAt($original, ($current + 1), 1, "Z", ""))
 		  {
@@ -673,17 +642,17 @@ sub trans_metaphone
 		      next;
 		  }
 
-		if (stringAt($original, $current, 2, "SC", ""))
+		if( stringAt($original, $current, 2, "SC", ""))
 		  {
 		      # Schlesinger's rule
-		      if (charAt($original, $current + 2) eq 'H')
+		      if( charAt($original, $current + 2) eq 'H')
 			  # dutch origin, e.g. 'school', 'schooner'
 			{
-			  if (stringAt($original, ($current + 3), 2, "OO", "ER", "EN",
+			  if( stringAt($original, ($current + 3), 2, "OO", "ER", "EN",
 			               "UY", "ED", "EM", ""))
 			    {
 				# 'schermerhorn', 'schenker'
-				if (stringAt($original, ($current + 3), 2, "ER", "EN", ""))
+				if( stringAt($original, ($current + 3), 2, "ER", "EN", ""))
 				  {
 					appendPhones( "ʃ", "sk" );
 				  }
@@ -696,7 +665,7 @@ sub trans_metaphone
 			    }
 			  else
 			    {
-				if (($current == 0) && !IsVowel($original, 3)
+				if( ($current == 0) && !IsVowel($original, 3)
 				    && (charAt($original, 3) != 'W'))
 				  {
 					appendPhones( "ʃ", "s" );
@@ -710,7 +679,7 @@ sub trans_metaphone
 			    }
 			}
 
-		      if (stringAt($original, ($current + 2), 1, "I", "E", "Y", ""))
+		      if( stringAt($original, ($current + 2), 1, "I", "E", "Y", ""))
 			{
 				appendPhones( "S", "s" );
 			    $current += 3;
@@ -723,7 +692,7 @@ sub trans_metaphone
 		  }
 
 		# french e.g. 'resnais', 'artois'
-		if (($current == $last)
+		if( ($current == $last)
 		    && stringAt($original, ($current - 2), 2, "AI", "OI", ""))
 		  {
 				appendPhones( "", "s" );
@@ -739,11 +708,11 @@ sub trans_metaphone
 			;
 		}
 		elsif( $ch eq 'T' ) {
-			if (stringAt($original, $current, 4, "TION", "")) {
+			if( stringAt($original, $current, 4, "TION", "")) {
 				appendPhones( "ʃ" );
 				$current += 3;
 		  	}
-			elsif (stringAt($original, $current, 3, "TIA", "TCH", "")) {
+			elsif( stringAt($original, $current, 3, "TIA", "TCH", "")) {
 				appendPhones( "ʃ" );
 				$current += 3;
 		  	}
@@ -752,7 +721,7 @@ sub trans_metaphone
 			    || stringAt($original, $current, 3, "TTH", ""))
 		  	{
 				# special case 'thomas', 'thames' or germanic
-				if (stringAt($original, ($current + 2), 2, "OM", "AM", "")
+				if( stringAt($original, ($current + 2), 2, "OM", "AM", "")
 				  || stringAt($original, 0, 4, "VAN ", "VON ", "")
 				  || stringAt($original, 0, 3, "SCH", ""))
 				{
@@ -764,7 +733,7 @@ sub trans_metaphone
 				}
 				$current += 2;
 		  	}
-			elsif (stringAt($original, ($current + 1), 1, "T", "D", "")) {
+			elsif( stringAt($original, ($current + 1), 1, "T", "D", "")) {
 				$current += 2;
 			} else {
 				$current += 1;
@@ -787,24 +756,24 @@ sub trans_metaphone
 			elsif( ($current == 0)
 			    && (IsVowel($original, $current + 1)
 			    || stringAt($original, $current, 2, "WH", "")))
-			  {
+			{
 		 		# Wasserman should match Vasserman
-				if (IsVowel($original, $current + 1)) {
+				if( IsVowel($original, $current + 1)) {
 					appendPhones( "a", "f" );
 				} else {
 					# need Uomo to match Womo
 					appendPhones( "a" );
 				}
-		  	}
+			}
 
 			# Arnow should match Arnoff
-			elsif ((($current == $last) && IsVowel($original, $current - 1))
+			elsif( (($current == $last) && IsVowel($original, $current - 1))
 			    || stringAt($original, ($current - 1), 5, "EWSKI", "EWSKY", "OWSKI", "OWSKY", "")
 			    || stringAt($original, 0, 3, "SCH", ""))
-			  {
+			{
 				appendPhones( "", "f" );
 				$current += 1;
-			  }
+			}
 
 			# polish e.g. 'filipowicz'
 			elsif( stringAt($original, $current, 4, "WICZ", "WITZ", "") ) {
@@ -818,7 +787,7 @@ sub trans_metaphone
 		}
 		elsif( $ch eq 'X' ) {
 			# french e.g. breaux
-			if (!(($current == $last)
+			if( !(($current == $last)
 			   && (stringAt($original, ($current - 3), 3, "IAU", "EAU", "")
 			   || stringAt($original, ($current - 2), 2, "AU", "OU", ""))))
 			{
@@ -832,11 +801,11 @@ sub trans_metaphone
 		}
 		elsif( $ch eq 'Z' ) {
 			# chinese pinyin e.g. 'zhao'
-			if (charAt($original, $current + 1) eq 'H') {
+			if( charAt($original, $current + 1) eq 'H') {
 				appendPhones( "j" );
 				$current += 2;
 				next;
-			} elsif (stringAt($original, ($current + 1), 2, "ZO", "ZI", "ZA", "")
+			} elsif( stringAt($original, ($current + 1), 2, "ZO", "ZI", "ZA", "")
 			    || (SlavoGermanic($original)
 			    && (($current > 0)
 			    && charAt($original, $current - 1) != 'T')))
