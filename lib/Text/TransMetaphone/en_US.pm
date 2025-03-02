@@ -316,85 +316,76 @@ sub trans_metaphone
 					$current += 2;
 					next;
 				}
-		  }
-
-		if( charAt($original, $current + 1) eq 'N') {
-		      	if( ($current == 1) && isVowel($original, 0) && !SlavoGermanic($original)) {
-				appendPhones( "kn", "n" );
 			}
-		      	# not e.g. 'cagney'
-			elsif( !stringAt($original, ($current + 2), 2, "EY", "")
-			      && (charAt($original, $current + 1) != 'Y')
-			      && !SlavoGermanic($original))
+
+			if( charAt($original, $current + 1) eq 'N') {
+			      	if( ($current == 1) && isVowel($original, 0) && !SlavoGermanic($original)) {
+					appendPhones( "kn", "n" );
+				}
+			      	# not e.g. 'cagney'
+				elsif( !stringAt($original, ($current + 2), 2, "EY", "")
+				      && (charAt($original, $current + 1) != 'Y')
+				      && !SlavoGermanic($original))
+				{
+					appendPhones( "n", "kn" );
+				} else {
+					appendPhones( "kn" );
+				}
+			      $current += 2;
+			      next;
+			  }
+
+			# 'tagliaro'
+			if( stringAt($original, ($current + 1), 2, "LI", "")
+			    && !SlavoGermanic($original))
+			  {
+					appendPhones( "kl", "l" );
+			      $current += 2;
+			      next;
+			  }
+
+			# -ges-,-gep-,-gel-, -gie- at beginning
+			if( ($current == 0)
+			    && ((charAt($original, $current + 1) eq 'Y')
+			    || stringAt($original, ($current + 1), 2, "ES", "EP", "EB", "EL", "EY", "IB", "IL", "IN", "IE", "EI", "ER", "")))
 			{
-				appendPhones( "n", "kn" );
-			} else {
-				appendPhones( "kn" );
+				appendPhones( "k", "j" );
+				$current += 2;
+				next;
 			}
-		      $current += 2;
-		      next;
-		  }
 
-		# 'tagliaro'
-		if( stringAt($original, ($current + 1), 2, "LI", "")
-		    && !SlavoGermanic($original))
-		  {
-				appendPhones( "kl", "l" );
-		      $current += 2;
-		      next;
-		  }
-
-		# -ges-,-gep-,-gel-, -gie- at beginning
-		if( ($current == 0)
-		    && ((charAt($original, $current + 1) eq 'Y')
-			|| stringAt($original, ($current + 1), 2, "ES", "EP", "EB", "EL", "EY", "IB", "IL", "IN", "IE", "EI", "ER", "")))
-		  {
-			appendPhones( "k", "j" );
-		      $current += 2;
-		      next;
-		  }
-
-		#  -ger-,  -gy-
-		if( 
-		    (stringAt($original, ($current + 1), 2, "ER", "")
-		     || (charAt($original, $current + 1) eq 'Y'))
-		    && !stringAt($original, 0, 6, "DANGER", "RANGER", "MANGER", "")
-		    && !stringAt($original, ($current - 1), 1, "E", "I", "")
-		    && !stringAt($original, ($current - 1), 3, "RGY", "OGY",
-				 ""))
-		  {
-			appendPhones( "k", "j" );
-		      $current += 2;
-		      next;
-		  }
-
-		#  italian e.g, 'biaggi'
-		if( stringAt($original, ($current + 1), 1, "E", "I", "Y", "")
-		    || stringAt($original, ($current - 1), 4, "AGGI", "OGGI", ""))
-		  {
-		      # obvious germanic
-		      if( 
-			  (stringAt($original, 0, 4, "VAN ", "VON ", "")
-			   || stringAt($original, 0, 3, "SCH", ""))
-			  || stringAt($original, ($current + 1), 2, "ET", ""))
+			#  -ger-,  -gy-
+			if( (stringAt($original, ($current + 1), 2, "ER", "")
+			     || (charAt($original, $current + 1) eq 'Y'))
+			    && !stringAt($original, 0, 6, "DANGER", "RANGER", "MANGER", "")
+			    && !stringAt($original, ($current - 1), 1, "E", "I", "")
+			    && !stringAt($original, ($current - 1), 3, "RGY", "OGY", ""))
 			{
-				appendPhones( "k" );
+				appendPhones( "k", "j" );
+				$current += 2;
+				next;
 			}
-		      else
+
+			#  italian e.g, 'biaggi'
+			if( stringAt($original, ($current + 1), 1, "E", "I", "Y", "")
+			    || stringAt($original, ($current - 1), 4, "AGGI", "OGGI", ""))
 			{
-			    # always soft if french ending
-			    if( stringAt ($original, ($current + 1), 4, "IER ", ""))
-			      {
-					appendPhones( "j" );
-			      }
-			    else
-			      {
-				appendPhones( "j", "k" );
-			      }
+				# obvious germanic
+				if( (stringAt($original, 0, 4, "VAN ", "VON ", "")
+				    || stringAt($original, 0, 3, "SCH", ""))
+				    || stringAt($original, ($current + 1), 2, "ET", ""))
+				{
+					appendPhones( "k" );
+				}
+				elsif( stringAt ($original, ($current + 1), 4, "IER ", "")) {
+					# always soft if french ending
+					apendPhones( "j" );
+				} else {
+					endPhones( "j", "k" );
+			  	}
+			      $current += 2;
+			      next;
 			}
-		      $current += 2;
-		      next;
-		  }
 
 			$current += (charAt($original, $current + 1) eq 'G')
 				 ? 2
@@ -436,11 +427,11 @@ sub trans_metaphone
 			if(  ($current == 0) && !stringAt($original, $current, 4, "JOSE", "") ) {
 				# Yankelovich/Jankelowicz
 				appendPhones( "ʤ", "a" );
-			# spanish pron. of e.g. 'bajador'
-			} elsif( IsVowel($original, $current - 1)
-				  && !SlavoGermanic($original)
-				  && ((charAt($original, $current + 1) eq 'A')
-				      || (charAt($original, $current + 1) == 'O')))
+			} elsif( # spanish pron. of e.g. 'bajador'
+				 IsVowel($original, $current - 1)
+				 && !SlavoGermanic($original)
+				 && ((charAt($original, $current + 1) eq 'A')
+				 || (charAt($original, $current + 1) == 'O')) )
 			{
 				appendPhones( "j", "h" );
 			}
@@ -597,92 +588,73 @@ sub trans_metaphone
 				next;
 			}
 
-		# italian & armenian
-		if( stringAt($original, $current, 3, "SIO", "SIA", "")
-		    || stringAt($original, $current, 4, "SIAN", ""))
-		  {
-		      if( !SlavoGermanic($original)) {
+			# italian & armenian
+			if( stringAt($original, $current, 3, "SIO", "SIA", "") || stringAt($original, $current, 4, "SIAN", "")) {
+				if( !SlavoGermanic($original)) {
 					appendPhones( "s", "ʃ" );
-			} else {
+				} else {
 					appendPhones( "s" );
-			}
-		      $current += 3;
-		      next;
-		  }
+				}
+			      $current += 3;
+			      next;
+			  }
 
-		# german & anglicisations, e.g. 'smith' match 'schmidt', 'snider' match 'schneider' 
-		#   also, -sz- in slavic language altho in hungarian it is pronounced 's'
-		if( (($current == 0)
-		     && stringAt($original, ($current + 1), 1, "M", "N", "L", "W", ""))
-		    || stringAt($original, ($current + 1), 1, "Z", ""))
-		  {
+			# german & anglicisations, e.g. 'smith' match 'schmidt', 'snider' match 'schneider' 
+			#   also, -sz- in slavic language altho in hungarian it is pronounced 's'
+			if( (($current == 0)
+			     && stringAt($original, ($current + 1), 1, "M", "N", "L", "W", ""))
+			    || stringAt($original, ($current + 1), 1, "Z", ""))
+			  {
 				appendPhones( "s", "ʃ" );
 				$current += (stringAt($original, ($current + 1), 1, "Z", ""))
 					 ? 2
 					 : 1
 				;
-		      next;
-		  }
+			      next;
+			  }
 
-		if( stringAt($original, $current, 2, "SC", ""))
-		  {
-		      # Schlesinger's rule
-		      if( charAt($original, $current + 2) eq 'H')
-			  # dutch origin, e.g. 'school', 'schooner'
-			{
-			  if( stringAt($original, ($current + 3), 2, "OO", "ER", "EN",
-			               "UY", "ED", "EM", ""))
-			    {
-				# 'schermerhorn', 'schenker'
-				if( stringAt($original, ($current + 3), 2, "ER", "EN", ""))
-				  {
-					appendPhones( "ʃ", "sk" );
-				  }
-				else
-                                  {
-					appendPhones( "sk" );
-                                  }
-				$current += 3;
-				next;
-			    }
-			  else
-			    {
-				if( ($current == 0) && !IsVowel($original, 3)
-				    && (charAt($original, 3) != 'W'))
-				  {
-					appendPhones( "ʃ", "s" );
-				  }
-				else
-				  {
-					appendPhones( "ʃ" );
-				  }
-				$current += 3;
-				next;
-			    }
-			}
+			if( stringAt($original, $current, 2, "SC", "")) {
+				# Schlesinger's rule
+				if( charAt($original, $current + 2) eq 'H') {
+				  	# dutch origin, e.g. 'school', 'schooner'
+					if( stringAt($original, ($current + 3), 2, "OO", "ER", "EN", "UY", "ED", "EM", "")) {
+						# 'schermerhorn', 'schenker'
+						if( stringAt($original, ($current + 3), 2, "ER", "EN", "")) {
+							appendPhones( "ʃ", "sk" );
+						} else {
+							appendPhones( "sk" );
+						}
+						$current += 3;
+						next;
+					}
+					elsif( ($current == 0) && !IsVowel($original, 3) && (charAt($original, 3) != 'W')) {
+						appendPhones( "ʃ", "s" );
+					} else {
+						appendPhones( "ʃ" );
+					}
+					$current += 3;
+					next;
+				}
 
-		      if( stringAt($original, ($current + 2), 1, "I", "E", "Y", ""))
-			{
-				appendPhones( "S", "s" );
-			    $current += 3;
-			    next;
-			}
-		      # else
+				if( stringAt($original, ($current + 2), 1, "I", "E", "Y", "")) {
+					appendPhones( "S", "s" );
+					$current += 3;
+					next;
+				}
+
+				# else
+
 				appendPhones( "sk" );
-		      $current += 3;
-		      next;
-		  }
+				$current += 3;
+				next;
+			}
 
-		# french e.g. 'resnais', 'artois'
-		if( ($current == $last)
-		    && stringAt($original, ($current - 2), 2, "AI", "OI", ""))
-		  {
+			# french e.g. 'resnais', 'artois'
+			if( ($current == $last) && stringAt($original, ($current - 2), 2, "AI", "OI", "") ) {
 				appendPhones( "", "s" );
-		  }
-		else
-		  {
+			} else {
 				appendPhones( "s" );
-		  }
+			}
 
 			$current += (stringAt($original, ($current + 1), 1, "S", "Z", ""))
 				 ? 2
