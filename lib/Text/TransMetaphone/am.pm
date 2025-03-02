@@ -11,7 +11,7 @@ BEGIN
 	use strict;
 	use vars qw( $VERSION $LocaleRange %IMExpected %IMError %plosives );
 
-	$VERSION = '0.02';
+	$VERSION = '0.08';
 
 	$LocaleRange = qr/[ሀ-ቍበ-ኾዐ-ዷጀ-ጕጠ-፼]/;
 
