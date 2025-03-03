@@ -1,6 +1,9 @@
 # Revision History for the Text::Transmetaphone Perl Distribution
 
-## 0.08 TBD
+## 0.08 Sun Mar  2 19:46:24 EST 2025
+	- Migration to a Build.PL & GitHub system.
+	- Pure Perl implementation of the `en_US` Double Metaphone algorithm.
+	- Removing PerlXS and C code.
 
 ## 0.07 Sat Aug 12 12:59:32 EDT 2006
 	- fixed installation problems

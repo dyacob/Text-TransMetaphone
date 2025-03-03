@@ -55,6 +55,10 @@ sub SlavoGermanic
 	return ( /([KW])|(CZ)|(WITZ)/ ) ? 1 : 0 ;
 }
 
+#
+# Note that the code below is converted from the C language
+# and may still exhibit C language style and logic.
+#
 sub trans_metaphone
 {
 	my ($original) = uc( $_[0] );
@@ -783,6 +787,11 @@ sub trans_metaphone
 
 	( $primary, $secondary );
 
+}
+
+sub reverse_key
+{
+	print STDERR, "not implemented.\n";
 }
 
 
