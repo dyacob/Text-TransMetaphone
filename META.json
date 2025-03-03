@@ -36,15 +36,15 @@
       },
       "Text::TransMetaphone::ar" : {
          "file" : "lib/Text/TransMetaphone/ar.pm",
-         "version" : "0.01"
+         "version" : "0.08"
       },
       "Text::TransMetaphone::chr" : {
          "file" : "lib/Text/TransMetaphone/chr.pm",
-         "version" : "0.01"
+         "version" : "0.08"
       },
       "Text::TransMetaphone::el" : {
          "file" : "lib/Text/TransMetaphone/el.pm",
-         "version" : "0.01"
+         "version" : "0.08"
       },
       "Text::TransMetaphone::en_US" : {
          "file" : "lib/Text/TransMetaphone/en_US.pm",
@@ -52,27 +52,27 @@
       },
       "Text::TransMetaphone::gu" : {
          "file" : "lib/Text/TransMetaphone/gu.pm",
-         "version" : "0.01"
+         "version" : "0.08"
       },
       "Text::TransMetaphone::he" : {
          "file" : "lib/Text/TransMetaphone/he.pm",
-         "version" : "0.01"
+         "version" : "0.08"
       },
       "Text::TransMetaphone::ja_hiragana" : {
          "file" : "lib/Text/TransMetaphone/ja_hiragana.pm",
-         "version" : "0.01"
+         "version" : "0.08"
       },
       "Text::TransMetaphone::ja_katakana" : {
          "file" : "lib/Text/TransMetaphone/ja_katakana.pm",
-         "version" : "0.01"
+         "version" : "0.08"
       },
       "Text::TransMetaphone::ru" : {
          "file" : "lib/Text/TransMetaphone/ru.pm",
-         "version" : "0.01"
+         "version" : "0.08"
       },
       "Text::TransMetaphone::ti" : {
          "file" : "lib/Text/TransMetaphone/ti.pm",
-         "version" : "0.01"
+         "version" : "0.08"
       }
    },
    "release_status" : "stable",
