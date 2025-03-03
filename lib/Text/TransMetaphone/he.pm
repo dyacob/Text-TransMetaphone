@@ -178,10 +178,12 @@ Presently one new key is created per substitution set.  However one key
 in a future release.  The module will be updated as more rules of Hebrew
 orthography are learnt.
 
-=head1 COPYRIGHT
+=head1 LICENSE AND COPYRIGHT
 
-This module is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
+Copyright (c) 2003-2025, Daniel Yacob C<< <dyacob@cpan.org> >>. All rights reserved.
+
+This module is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself. See L<perlartistic>.
 
 =head1 BUGS
 
