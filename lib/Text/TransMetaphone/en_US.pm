@@ -801,7 +801,7 @@ __END__
 
 =head1 NAME
 
-Text::TransMetaphone::en_US - Transcribe American English words into IPA symbols.
+Text::TransMetaphone::en_US – Transcribe American English words into IPA symbols.
 
 =head1 SYNOPSIS
 
@@ -847,12 +847,12 @@ L<Text::Metaphone>, L<Text::Soundex>
 =head2 Additional References
 
 Philips, Lawrence. I<C/C++ Users Journal>, June, 2000.
-http://www.cuj.com/articles/2000/0006/0006d/0006d.htm?topic=articles
+L<http://www.cuj.com/articles/2000/0006/0006d/0006d.htm?topic=articles>
 
 Philips, Lawrence. I<Computer Language>, Vol. 7, No. 12 (December), 1990.
 
 Kevin Atkinson (author of the Aspell spell checker) maintains
 a page dedicated to the Metaphone and Trans Metaphone algorithms at 
-<http://aspell.sourceforge.net/metaphone/>
+L<http://aspell.sourceforge.net/metaphone/>
 
 =cut

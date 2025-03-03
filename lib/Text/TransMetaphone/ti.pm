@@ -127,7 +127,7 @@ __END__
 
 =head1 NAME
 
-Text::TransMetaphone::ti - Transcribe Tigrinya words into IPA symbols.
+Text::TransMetaphone::ti – Transcribe Tigrinya words into IPA symbols.
 
 =head1 SYNOPSIS
 
@@ -138,7 +138,7 @@ directly.
 
 The Text::TransMetaphone::ti module implements the TransMetaphone algorithm
 for Tigrinya.  The module provides a C<trans_metaphone> function that accepts
-an Tigrinya word as an argument and returns a list of keys transcribed into
+a Tigrinya word as an argument and returns a list of keys transcribed into
 IPA symbols under Tigrinya orthography rules.  The last key of the list is
 a regular expression that matching all previously returned keys.
 

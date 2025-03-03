@@ -97,7 +97,7 @@ __END__
 
 =head1 NAME
 
-Text::TransMetaphone::ja_katakana - Transcribe Katakana words into IPA symbols.
+Text::TransMetaphone::ja_katakana – Transcribe Katakana words into IPA symbols.
 
 =head1 SYNOPSIS
 
@@ -108,7 +108,7 @@ directly.
 
 The Text::TransMetaphone::ja_katakana module implements the TransMetaphone algorithm
 for Katakana.  The module provides a C<trans_metaphone> function that accepts
-an Katakana word as an argument and returns a list of keys transcribed into
+a Katakana word as an argument and returns a list of keys transcribed into
 IPA symbols under Katakana orthography rules.  The last key of the list is
 a regular expression that matching all previously returned keys.
 

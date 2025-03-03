@@ -121,7 +121,7 @@ __END__
 
 =head1 NAME
 
-Text::TransMetaphone::ru - Transcribe Russian words into IPA symbols.
+Text::TransMetaphone::ru – Transcribe Russian words into IPA symbols.
 
 =head1 SYNOPSIS
 
@@ -132,7 +132,7 @@ directly.
 
 The Text::TransMetaphone::ru module implements the TransMetaphone algorithm
 for Russian.  The module provides a C<trans_metaphone> function that accepts
-an Russian word as an argument and returns a list of keys transcribed into
+a Russian word as an argument and returns a list of keys transcribed into
 IPA symbols under Russian orthography rules.  The last key of the list is
 a regular expression that matching all previously returned keys.
 

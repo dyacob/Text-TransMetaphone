@@ -99,7 +99,7 @@ __END__
 
 =head1 NAME
 
-Text::TransMetaphone::ja_hiragana - Transcribe Hiragana words into IPA symbols.
+Text::TransMetaphone::ja_hiragana – Transcribe Hiragana words into IPA symbols.
 
 =head1 SYNOPSIS
 
@@ -110,7 +110,7 @@ directly.
 
 The Text::TransMetaphone::ja_hiragana module implements the TransMetaphone algorithm
 for Hiragana.  The module provides a C<trans_metaphone> function that accepts
-an Hiragana word as an argument and returns a list of keys transcribed into
+a Hiragana word as an argument and returns a list of keys transcribed into
 IPA symbols under Hiragana orthography rules.  The last key of the list is
 a regular expression that matching all previously returned keys.
 

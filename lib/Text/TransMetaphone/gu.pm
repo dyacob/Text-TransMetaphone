@@ -113,7 +113,7 @@ __END__
 
 =head1 NAME
 
-Text::TransMetaphone::gu - Transcribe Gujarti words into IPA symbols.
+Text::TransMetaphone::gu – Transcribe Gujarti words into IPA symbols.
 
 =head1 SYNOPSIS
 

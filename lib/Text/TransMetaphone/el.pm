@@ -107,7 +107,7 @@ __END__
 
 =head1 NAME
 
-Text::TransMetaphone::el - Transcribe Greek words into IPA symbols.
+Text::TransMetaphone::el – Transcribe Greek words into IPA symbols.
 
 =head1 SYNOPSIS
 
@@ -118,7 +118,7 @@ directly.
 
 The Text::TransMetaphone::el module implements the TransMetaphone algorithm
 for Greek.  The module provides a C<trans_metaphone> function that accepts
-an Greek word as an argument and returns a list of keys transcribed into
+a Greek word as an argument and returns a list of keys transcribed into
 IPA symbols under Greek orthography rules.  The last key of the list is
 a regular expression that matching all previously returned keys.
 
@@ -140,9 +140,9 @@ modify it under the same terms as Perl itself. See L<perlartistic>.
 
 =head1 BUGS
 
-The /i substitution switch isn't working for Greek in some cases.  Some vowels
-used in Greek also are not being stripped out.  Fixes will be provided in a
-future release.
+The /i regex substitution switch isn't working for Greek in some cases.
+Some vowels used in Greek also are not being stripped out.  Fixes will be
+provided in a future release.
 
 =head1 AUTHOR
 

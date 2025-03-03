@@ -139,7 +139,7 @@ __END__
 
 =head1 NAME
 
-Text::TransMetaphone::ar - Transcribe Arabic words into IPA symbols.
+Text::TransMetaphone::ar – Transcribe Arabic words into IPA symbols.
 
 =head1 SYNOPSIS
 

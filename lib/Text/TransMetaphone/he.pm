@@ -152,7 +152,7 @@ __END__
 
 =head1 NAME
 
-Text::TransMetaphone::he - Transcribe Hebrew words into IPA symbols.
+Text::TransMetaphone::he – Transcribe Hebrew words into IPA symbols.
 
 =head1 SYNOPSIS
 
@@ -173,7 +173,7 @@ a regular expression that would phonological sequence under Hebrew orthography.
 =head1 STATUS
 
 The Hebrew module applies basic phonetic mappings to generate keys. 
-Presently one new key is created per substitution set.  However one key
+Presently one new key is created per substitution set.  However, one key
 *should* be created for each individual substitution.  This will be fixed
 in a future release.  The module will be updated as more rules of Hebrew
 orthography are learnt.

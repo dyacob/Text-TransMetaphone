@@ -105,10 +105,12 @@ my ($word, $locale) = @_;
 __END__
 
 
+=encoding utf8
+
 
 =head1 NAME
 
-Text::TransMetaphone - Translingual phonetic encoding of words. 
+Text::TransMetaphone – Translingual phonetic encoding of words. 
 
 =head1 SYNOPSIS
 
@@ -126,16 +128,16 @@ of I<C/C++ Users Journal>.  Trans-Metaphone is a variation
 of Philips' original Metaphone algorithm. 
 
 The TransMetaphone package implements an "N-Metaphone" algorithm
-for supportedlanguages where keys are generated in IPA symbols.
+for supported languages where keys are generated in IPA symbols.
 There are no restrictions on the number of encoded keys that may be
 returned.  The number of encoded keys returned is left to the
-descression of implementer and what s/he finds practical for the
+discretion of implementer and what s/he finds practical for the
 writing system of concern.
 
 IPA encoding is applied to normalize language and script boundaries.
 IPA encoded words can then be readily compared between different
 languages and writing systems.  Applied to text retrieval, you can
-can generate a key in one language and then search for it any other
+generate a key in one language and then search for it any other
 supported language.
 
 For additional details, see the C<doc/index.html> file provided
@@ -163,7 +165,7 @@ In a scalar context, the function returns only the first encoding.
 =item reverse_key ( IPA-STRING, ISO639_LANGUAGE_CODE )
 
 The reverse_key function takes an IPA encoded string (such as one
-returnedd by the trans_metaphone function) and returns a regular
+returned by the trans_metaphone function) and returns a regular
 expression to match the sequence under the orthography conventions
 of the locale specified.
 
@@ -191,7 +193,7 @@ modify it under the same terms as Perl itself. See L<perlartistic>.
 =head1 SEE ALSO
 
 Philips, Lawrence. I<C/C++ Users Journal>, June, 2000.
-http://www.cuj.com/articles/2000/0006/0006d/0006d.htm?topic=articles
+L<http://www.cuj.com/articles/2000/0006/0006d/0006d.htm?topic=articles>
 
 Philips, Lawrence. I<Computer Language>, Vol. 7, No. 12 (December), 1990.
 
@@ -199,6 +201,6 @@ L<Text::DoubleMetaphone> by Maurice Aubrey E<lt>maurice@hevanet.comE<gt>.
 
 Kevin Atkinson (author of the Aspell spell checker) maintains
 a page dedicated to the Metaphone and Double Metaphone algorithms at 
-<http://aspell.sourceforge.net/metaphone/>
+L<http://aspell.sourceforge.net/metaphone/>
 
 =cut

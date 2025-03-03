@@ -189,7 +189,7 @@ __END__
 
 =head1 NAME
 
-Text::TransMetaphone::am - Transcribe Amharic words into IPA symbols.
+Text::TransMetaphone::am – Transcribe Amharic words into IPA symbols.
 
 =head1 SYNOPSIS
 
@@ -210,7 +210,7 @@ a regular expression that would phonological sequence under Amharic orthography.
 =head1 STATUS
 
 The Amharic module is the most developed in the TransMetaphone package.
-It has awareness of common mispelling in Amharic, perhaps too much, the
+It has awareness of common misspelling in Amharic, perhaps too much, the
 module will produce a high number of keys.
 
 =head1 REQUIRES
